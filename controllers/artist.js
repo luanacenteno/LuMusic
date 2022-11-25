@@ -17,13 +17,15 @@ function saveArtist(req, res){
 
     artist.save((err, artistStored) => {
         if(err){
-            res.status(500).send({message: 'Error al guardar el artista'})
-        }
-        if(!artistStored){
-            res.status(404).send({message: 'No se pudo guardar el artista'})
+            res.status(500).send({message: 'Error en el servidor'})
         }else{
-            res.status(200).send({artist: artistStored})
+            if(!artistStored){
+                res.status(404).send({message: 'No se pudo guardar el artista'})
+            }else{
+                res.status(200).send({artist: artistStored})
+            }
         }
+        
     })
 }
 
@@ -70,7 +72,7 @@ function updateArtist(req, res){
 
     Artist.findByIdAndUpdate(artistId, update, (err, artistUpdated) => {
         if(err){
-            res.status(500).send({message: 'Error al actualizar el artista'})
+            res.status(500).send({message: 'Error en el servidor'})
         }else{
             if(!artistUpdated){
                 res.status(404).send({message: 'No se pudo actualizar el artista'})
@@ -93,7 +95,7 @@ function deleteArtist(req, res){
             }else{
                 Album.find({artist: artistRemoved._id}).remove((err, albumRemoved) => {
                     if(err){
-                        res.status(500).send({message: 'Error al eliminar el artista'})
+                        res.status(500).send({message: 'Error al eliminar el album'})
                     }else{
                         if(!albumRemoved){
                             res.status(404).send({message: 'El album no ha sido eliminado'})

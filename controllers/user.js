@@ -6,11 +6,6 @@ var jwt = require('../services/jwt')
 var fs = require('fs')
 var path = require('path')
 
-function pruebas(req, res){
-    res.status(200).send({
-        message: "Probando acción del controlador de usuarios del api rest con Node y MongoDB"
-    });
-}
 
 function saveUser(req, res){
     var user = new User()
@@ -121,7 +116,7 @@ function uploadImage(req, res){
                     if(!userUpdated){
                         res.status(404).send({message: 'No se ha podido actualizar el usuario'})
                     }else{
-                        res.status(200).send({user: userUpdated})
+                        res.status(200).send({image: file_name, user: userUpdated})
                     }
                 }
             })
@@ -147,7 +142,6 @@ function getImageFile(req, res){
 
 
 module.exports = {
-    pruebas,
     saveUser,
     loginUser,
     updateUser,
